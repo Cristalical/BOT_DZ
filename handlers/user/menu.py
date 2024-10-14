@@ -5,14 +5,14 @@ from loader import dp
 from filters import IsAdmin, IsUser
 
 basics_of_business_communications = "ОДК"
-foundations_of_Russian_statehood = "ОРГ"
+basics_of_Russian_government = "ОРГ"
 history_of_science_and_technology = "ИНИТ"
 history_of_Russia = "История России"
 infomatics = "Информатика"
-higher_mathematics = "Высшая математика"
+mathmatics = "Высшая математика"
 introduction_to_the_profession = "Введение в профессию"
 physical_education = "Физра, да..."
-english_lauguage = "Английский язык"
+english = "Английский язык"
 
 @dp.message_handler(IsAdmin(), commands='menu')
 async def admin_menu(message: Message):
