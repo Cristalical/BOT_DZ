@@ -13,7 +13,7 @@ def main_kb(user_telegram_id: int):
         [KeyboardButton(text="одинок,"), KeyboardButton(text="но не")],
         [KeyboardButton(text="дырявый")],
     ]
-    keyboard = ReplyKeyboardMarkup(keyboard=kb_list, resize_keyboard=True, one_time_keyboard=True)
+    keyboard = ReplyKeyboardMarkup(keyboard=kb_list)
     return keyboard
 
 @dp.message(Command("start", "s"))

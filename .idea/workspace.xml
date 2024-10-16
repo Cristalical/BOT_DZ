@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="ono rabotaet!!!!!!!!!!!!!!!!">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_10_2024,_13_10_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_10_2024__13_10__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/jj.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/date/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filters/is_admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/is_admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filters/is_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/is_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/db/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db/storage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +32,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Cristalical/BOT_DZ.git",
-    "accountId": "df24f006-db74-4b9e-8801-cb178fea11f3"
+    "accountId": "621f8b1c-9609-4ca1-9ec6-7f584b6dd4e4"
   }
 }]]></component>
   <component name="ProblemsViewState">
@@ -58,6 +53,7 @@
   &quot;keyToString&quot;: {
     &quot;Python.app.executor&quot;: &quot;Run&quot;,
     &quot;Python.is_admin.executor&quot;: &quot;Run&quot;,
+    &quot;Python.jj.executor&quot;: &quot;Run&quot;,
     &quot;Python.loader.executor&quot;: &quot;Run&quot;,
     &quot;Python.menu.executor&quot;: &quot;Run&quot;,
     &quot;Python.run.executor&quot;: &quot;Run&quot;,

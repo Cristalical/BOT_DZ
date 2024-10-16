@@ -1,10 +1,26 @@
 import psycopg2 as p2
 
 class DatebaseManager:
-    def __init__(self, path):
-        self.conn = p2.connect(self, path)
-        self.conn.commit()
-        self.cur = self.conn.cursor()
+    def __init__(self): #user, password, host, port, db
+        # self.conn = p2.connect(self, user="postgres",
+        #                      password="qwerty",
+        #                      host="127.0.0.1",
+        #                      port="5432",
+        #                      database="dz_bot_bd")
+        # self.conn.commit()
+        # self.cur = self.conn.cursor()
+        #
+        # self.info_db = {"dbname": "my_data_base",
+        #                 "host": "localhost"}
+
+        self.info_db = {"user": "postgres",
+                        "password": "qwerty",
+                        "host": "127.0.0.1",
+                        "port": "5432",
+                        "database": "dz_bot_bd"}
+
+        self.conn = p2.connect(**self.info_db)
+        self.cursor = self.conn.cursor()
 
     def create_db(self):
         self.query("CREATE DATABASE dz_bot_bd")
@@ -39,8 +55,9 @@ class DatebaseManager:
             self.cur.execute(arg, values)
         return self.cur.fetchall()
 
-    def __del__(self):
+    def close(self):
         self.conn.close()
+        self.cursor.close()
 
 
 
