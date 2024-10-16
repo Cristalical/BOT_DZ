@@ -14,7 +14,7 @@ class DatebaseManager:
                     (all_homework_id integer primary key NOT NULL,
                     lessons text NOT NULL,
                     description text NOT NULL,
-                    deadline date NOT NULL,
+                    deadline data NOT NULL,
                     format text NOT NULL,
                     image_date bytea NOT NULL)''')
 
@@ -67,7 +67,7 @@ class DatebaseManager:
 #                           (all_homework_id integer primary key NOT NULL,
 #                           lessons text NOT NULL,
 #                           description text NOT NULL,
-#                           deadline date NOT NULL,
+#                           deadline data NOT NULL,
 #                           format text NOT NULL,
 #                           image_date bytea NOT NULL)'''
 #     cursor.execute(create_table_query)
