@@ -7,15 +7,6 @@ from loader import dp, bot
 user_message = "Челик"
 admin_message = "БОГ!"
 
-def main_kb(user_telegram_id: int):
-    kb_list = [
-        [KeyboardButton(text="я как"), KeyboardButton(text="носок -")],
-        [KeyboardButton(text="одинок,"), KeyboardButton(text="но не")],
-        [KeyboardButton(text="дырявый")],
-    ]
-    keyboard = ReplyKeyboardMarkup(keyboard=kb_list, resize_keyboard=True, one_time_keyboard=True)
-    return keyboard
-
 @dp.message(Command("start", "s"))
 async def cmd_start(message: types.Message):
     await message.answer('''Даров! 👋
@@ -29,16 +20,26 @@ async def cmd_start(message: types.Message):
 #     basicConfig(level=INFO)
 #     db.create_tables()
 
+def main_kb(user_telegram_id: int):
+    kb_list = [
+        [KeyboardButton(text="ОРГ"), KeyboardButton(text="ОДК")],
+        [KeyboardButton(text="ИНФА,"), KeyboardButton(text="АНГЛ1")],
+        [KeyboardButton(text="ИНИТ,"), KeyboardButton(text="АНГЛ2")],
+        [KeyboardButton(text="МАТАН"), KeyboardButton(text="ВВП")],
+        [KeyboardButton(text="ИР"), KeyboardButton(text="ФИЗРА")]
+    ]
+    keyboard = ReplyKeyboardMarkup(keyboard=kb_list, resize_keyboard=True, one_time_keyboard=True)
+    return keyboard
+
 @dp.message(Command("menu"))
 async def cmd_start(message: types.Message):
 
-    await message.answer('''hule tut tak malo''')
+    await message.answer('''а вот тут уже должны быть кнопки с предметами''')
 
 @dp.message(Command("sos"))
 async def cmd_start(message: types.Message):
 
-    await message.answer('''/нам нужна помощь здесь она пиздец 
-    /s e x пррыгай на мой шест пройди этот тест''')
+    await message.answer('''айдишник кристаликал и невероятнейше''')
 
 async def main():
     await dp.start_polling(bot)
