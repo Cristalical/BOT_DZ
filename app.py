@@ -33,11 +33,12 @@ def main_kb(user_telegram_id: int):
     ]
     keyboard = ReplyKeyboardMarkup(keyboard=kb_list, resize_keyboard=True, one_time_keyboard=True)
     return keyboard
-
+def init_suka():
+    print("govno")
 def ease_link_kb():
     inline_kb_list = [
-        [InlineKeyboardButton(text="ОДК", url='https://habr.com/ru/users/yakvenalex/')],
-        [InlineKeyboardButton(text="Мой Telegram", url='tg://resolve?domain=yakvenalexx')]
+        [InlineKeyboardButton(text="ОДК", callback_data='init_suka')],
+        [InlineKeyboardButton(text="Мой Telegram", callback_data='init_suka')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
