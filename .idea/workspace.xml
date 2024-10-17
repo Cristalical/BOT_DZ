@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="ono rabotaet!!!!!!!!!!!!!!!!">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -187,6 +186,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="GOOD!????" />
     <MESSAGE value="ono rabotaet!!!!!!!!!!!!!!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="ono rabotaet!!!!!!!!!!!!!!!!" />
+    <MESSAGE value="каиф" />
+    <option name="LAST_COMMIT_MESSAGE" value="каиф" />
   </component>
 </project>
