@@ -45,20 +45,20 @@ def ease_link_kb():
 @dp.message(Command("menu"))
 async def cmd_start(message: types.Message):
 
-    await message.answer('''Выбери предмет, сучка)''', reply_markup=ease_link_kb())
+    await message.answer('''Выбери предмет)''', reply_markup=ease_link_kb())
 
 @dp.message(Command("sos"))
 async def cmd_start(message: types.Message):
 
-    await message.answer('''Обращайтесь к ебейшему @cristalical
-                            и его рабу @neveroyatneyshee!!!''')
+    await message.answer('''Обращайтесь к @neveroyatneyshee 
+                            и его рабу @cristalical!!!''')
 
 async def main():
     await dp.start_polling(bot)
 
 @dp.message(F.text == 'ОДК')
 async def cmd_start(message: types.Message):
-    await message.answer('''ТЫ ДАУН АХАХАХАХХА''', reply_markup=types.ReplyKeyboardRemove())
+    await message.answer('''олололо''', reply_markup=types.ReplyKeyboardRemove())
 
 
 
