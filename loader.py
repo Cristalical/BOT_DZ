@@ -10,5 +10,5 @@ from utils.db.storage import DatebaseManager
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
-
-# '''Тут нужно подключиться будет к бд'''
+db = DatebaseManager()
+print(db.fetchall("SELECT deadline FROM all_homework"))
