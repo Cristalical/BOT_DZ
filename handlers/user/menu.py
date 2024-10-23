@@ -27,74 +27,72 @@ def butt_subjects():
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
-# def butt():
-#     date_table = db.fetchall("SELECT deadline FROM all_homework")
-#     inline_kb_list = []
-#     item = 1
-#     for element in date_table:
-#         inline_kb_list.append([InlineKeyboardButton(text=f"{str(element)[15:27]}", callback_data=f"sub_{item}")])
-#     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
-#
-# def butt_odk():
-#     date_table = db.fetchall("SELECT * FROM all_homework")
-#     inline_kb_list = []
-#     item = 1
-#     for element in date_table:
-#         inline_kb_list.append([InlineKeyboardButton(text=f"{str(element)[15:27]}", callback_data=f"sub_{item}")])
-#     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
+def butt(subj):
+    date_table = db.fetchall(f"SELECT deadline FROM all_homework WHERE lessons = \'{subj}\'")
+    inline_kb_list = []
+    for element in date_table:
+        date = str(element)[15:27].split(", ")
+        inline_kb_list.append([InlineKeyboardButton(text=f"{date[2]}.{date[1]}.{date[0]}", callback_data='vvp_f')])#, reply_markup=date_f(int(date[2]), int(date[1]), int(date[0]), subj))])
+        #пиздец тут я устал
+    return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
+
+@dp.callback_query(F.func())
+def date_f(day, month, year, subj):
+    d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' and deadline = \'{f"{str(year)}-{str(month)}-{str(day)}"}\'")
+    print(d_mess)
 
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ОДК, выбери дату сучка''', reply_markup=butt())
+    await call.message.answer('''Это тип ОДК, выбери дату сучка''', reply_markup=butt("odk"))
 
 @dp.callback_query(F.data == 'org_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ОРГ, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип ОРГ, выбери дату сучка''', reply_markup=butt("org"))
 
 @dp.callback_query(F.data == 'init_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ИНИТ, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип ИНИТ, выбери дату сучка''', reply_markup=butt("init"))
 
 @dp.callback_query(F.data == 'inf_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип инфа, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип инфа, выбери дату сучка''', reply_markup=butt("inf"))
 
 @dp.callback_query(F.data == 'math_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип матан, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип матан, выбери дату сучка''', reply_markup=butt("math"))
 
 @dp.callback_query(F.data == 'ir_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип история России, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип история России, выбери дату сучка''', reply_markup=butt("ir"))
 
 @dp.callback_query(F.data == 'eng_kr_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип английский красавчиков, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип английский красавчиков, выбери дату сучка''', reply_markup=butt("eng_kr"))
 
 @dp.callback_query(F.data == 'eng_ym_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип английский умничек, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип английский умничек, выбери дату сучка''', reply_markup=butt("eng_ym"))
 
 @dp.callback_query(F.data == 'vvp_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип введение в профессию, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип введение в профессию, выбери дату сучка''', reply_markup=butt("vvp"))
 
 @dp.callback_query(F.data == 'phys_f')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это тип физра, выбери дату сучка''', callback_data='phys_f')
+    await call.message.answer('''Это тип физра, выбери дату сучка''', reply_markup=butt("phys"))
 
 # '''Реакция на sos'''
 @dp.message(Command("sos"))
 async def cmd_sos(message: Message):
-    await message.answer('''Обращайтесь к ебейшему @cristalical и его помощнику @neveroyatneyshee!!!''', callback_data='phys_f')
+    await message.answer('''Обращайтесь к ебейшему @cristalical и его помощнику @neveroyatneyshee!!!''')
