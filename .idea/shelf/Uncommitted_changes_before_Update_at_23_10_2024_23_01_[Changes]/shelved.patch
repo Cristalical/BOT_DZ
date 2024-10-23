@@ -1,0 +1,293 @@
+Index: loader.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from aiogram import Bot, Dispatcher\r\nfrom aiogram.fsm.storage.memory import MemoryStorage\r\nfrom aiogram.enums.parse_mode import ParseMode\r\nfrom aiogram.client.default import DefaultBotProperties\r\n\r\nfrom data.config import BOT_TOKEN\r\nfrom utils.db.storage import DatebaseManager\r\n\r\n# '''Тут я сделал так, чтобы бот мог работать с html кодом'''\r\nbot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))\r\nstorage = MemoryStorage()\r\ndp = Dispatcher(storage=storage)\r\ndb = DatebaseManager()\r\nprint(db.fetchall(\"SELECT deadline FROM all_homework\"))
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/loader.py b/loader.py
+--- a/loader.py	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ b/loader.py	(date 1729600629245)
+@@ -11,4 +11,5 @@
+ storage = MemoryStorage()
+ dp = Dispatcher(storage=storage)
+ db = DatebaseManager()
+-print(db.fetchall("SELECT deadline FROM all_homework"))
+\ No newline at end of file
++db.create_db()
++db.create_table()
+\ No newline at end of file
+Index: utils/db/storage.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from webbrowser import Error\r\n\r\nimport psycopg2 as p2\r\n\r\nclass DatebaseManager:\r\n    def __init__(self):\r\n        try:\r\n            self.info_db = {\"user\": \"postgres\",\r\n                            \"password\": \"qwerty\",\r\n                            \"host\": \"127.0.0.1\",\r\n                            \"port\": \"5432\",\r\n                            \"database\": \"dz_bot_bd\"}\r\n\r\n            self.conn = p2.connect(**self.info_db)\r\n            self.cur = self.conn.cursor()\r\n            print(\"Ура\")\r\n        except:\r\n            print(\"error\")\r\n\r\n    def create_db(self):\r\n        self.query(\"CREATE DATABASE dz_bot_bd\")\r\n\r\n    def create_table(self):\r\n        self.query('''CREATE TABLE IF NOT EXISTS all_homework \r\n                    (all_homework_id integer primary key NOT NULL,\r\n                    lessons text NOT NULL,\r\n                    description text NOT NULL,\r\n                    deadline data NOT NULL,\r\n                    format text NOT NULL,\r\n                    image_date bytea NOT NULL)''')\r\n\r\n    def query(self, arg, values=None):\r\n        if values in None:\r\n            self.cur.execute(arg)\r\n        else:\r\n            self.cur.execute(arg, values)\r\n        self.conn.commit()\r\n\r\n    def fetchone(self, arg, values=None):\r\n        if values is None:\r\n            self.cur.execute(arg)\r\n        else:\r\n            self.cur.execute(arg, values)\r\n        return self.cur.fetchone()\r\n\r\n    def fetchall(self, arg, values=None):\r\n        if values is None:\r\n            self.cur.execute(arg)\r\n        else:\r\n            self.cur.execute(arg, values)\r\n        return self.cur.fetchall()\r\n\r\n    def close(self):\r\n        self.conn.close()\r\n        self.cursor.close()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/utils/db/storage.py b/utils/db/storage.py
+--- a/utils/db/storage.py	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ b/utils/db/storage.py	(date 1729600579427)
+@@ -52,4 +52,4 @@
+ 
+     def close(self):
+         self.conn.close()
+-        self.cursor.close()
+\ No newline at end of file
++        self.cur.close()
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024__15_22__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024__15_22__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024__15_22__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024__15_22__Changes_.xml	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ /dev/null	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]" date="1728908534207" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 14.10.2024, 15:22 [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ /dev/null	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
+@@ -1,103 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"ac03dc04-f6c8-4b88-9be8-d2c2af99e63d\" name=\"Changes\" comment=\"GOOD!????\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/utils/db/storage.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/utils/db/storage.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {}\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/Cristalical/BOT_DZ.git&quot;,\n    &quot;accountId&quot;: &quot;621f8b1c-9609-4ca1-9ec6-7f584b6dd4e4&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 7\n}</component>\n  <component name=\"ProjectId\" id=\"2mlHIBjjOS5KiIlLDjdzj2mAaQg\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Python.run.executor\": \"Run\",\n    \"Python.storage.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"master\",\n    \"settings.editor.selected.configurable\": \"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\Shura\\Desktop\\☠\uFE0F☠\uFE0F☠\uFE0F\\Примеры\\Ботки\\Ostrovokbot\\BOT_DZ\" />\n      <recent name=\"C:\\Users\\Shura\\Desktop\\☠\uFE0F☠\uFE0F☠\uFE0F\\Примеры\\Ботки\\Ostrovokbot\\BOT_DZ\\.venv\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"ac03dc04-f6c8-4b88-9be8-d2c2af99e63d\" name=\"Changes\" comment=\"\" />\n      <created>1727644160286</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1727644160286</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727645496499</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727645496499</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727645853629</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727645853629</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727646353485</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727646353485</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727646958998</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727646958998</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727722683621</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727722683621</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727722862232</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727722862232</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727722921092</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727722921092</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1727731827423</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1727731827423</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"GOOD!????\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1728331537888</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1728331537888</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"10\" />\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"GOOD!????\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"GOOD!????\" />\n  </component>\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision a29ce6599d998c75d59884d3f7cf586f6c8951c3)
+-+++ b/.idea/workspace.xml	(date 1728859100082)
+-@@ -6,7 +6,6 @@
+-   <component name="ChangeListManager">
+-     <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="GOOD!????">
+-       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/utils/db/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db/storage.py" afterDir="false" />
+-     </list>
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-@@ -26,30 +25,32 @@
+-   <component name="GitHubPullRequestSearchHistory">{
+-   &quot;lastFilter&quot;: {}
+- }</component>
+--  <component name="GithubPullRequestsUISettings">{
+--  &quot;selectedUrlAndAccountId&quot;: {
+--    &quot;url&quot;: &quot;https://github.com/Cristalical/BOT_DZ.git&quot;,
+--    &quot;accountId&quot;: &quot;621f8b1c-9609-4ca1-9ec6-7f584b6dd4e4&quot;
+--  }
+--}</component>
+-+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-+  "selectedUrlAndAccountId": {
+-+    "url": "https://github.com/Cristalical/BOT_DZ.git",
+-+    "accountId": "df24f006-db74-4b9e-8801-cb178fea11f3"
+-+  }
+-+}]]></component>
+-   <component name="ProjectColorInfo">{
+-   &quot;associatedIndex&quot;: 7
+- }</component>
+-   <component name="ProjectId" id="2mlHIBjjOS5KiIlLDjdzj2mAaQg" />
+--  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+-+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-+    <OptionsSetting value="false" id="Update" />
+-+  </component>
+-   <component name="ProjectViewState">
+-     <option name="hideEmptyMiddlePackages" value="true" />
+-     <option name="showLibraryContents" value="true" />
+-   </component>
+--  <component name="PropertiesComponent"><![CDATA[{
+--  "keyToString": {
+--    "Python.run.executor": "Run",
+--    "Python.storage.executor": "Run",
+--    "RunOnceActivity.ShowReadmeOnStart": "true",
+--    "git-widget-placeholder": "master",
+--    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+-+  <component name="PropertiesComponent">{
+-+  &quot;keyToString&quot;: {
+-+    &quot;Python.loader.executor&quot;: &quot;Run&quot;,
+-+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+-+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+-   }
+--}]]></component>
+-+}</component>
+-   <component name="RecentsManager">
+-     <key name="MoveFile.RECENT_KEYS">
+-       <recent name="C:\Users\Shura\Desktop\☠️☠️☠️\Примеры\Ботки\Ostrovokbot\BOT_DZ" />
+-@@ -128,24 +129,19 @@
+-       <option name="project" value="LOCAL" />
+-       <updated>1727722921092</updated>
+-     </task>
+--    <task id="LOCAL-00008" summary="GOOD!????">
+--      <option name="closed" value="true" />
+--      <created>1727731827423</created>
+--      <option name="number" value="00008" />
+--      <option name="presentableId" value="LOCAL-00008" />
+--      <option name="project" value="LOCAL" />
+--      <updated>1727731827423</updated>
+--    </task>
+--    <task id="LOCAL-00009" summary="GOOD!????">
+--      <option name="closed" value="true" />
+--      <created>1728331537888</created>
+--      <option name="number" value="00009" />
+--      <option name="presentableId" value="LOCAL-00009" />
+--      <option name="project" value="LOCAL" />
+--      <updated>1728331537888</updated>
+--    </task>
+--    <option name="localTasksCounter" value="10" />
+-+    <option name="localTasksCounter" value="8" />
+-     <servers />
+-+  </component>
+-+  <component name="Vcs.Log.Tabs.Properties">
+-+    <option name="TAB_STATES">
+-+      <map>
+-+        <entry key="MAIN">
+-+          <value>
+-+            <State />
+-+          </value>
+-+        </entry>
+-+      </map>
+-+    </option>
+-   </component>
+-   <component name="VcsManagerConfiguration">
+-     <MESSAGE value="GOOD!????" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.12 (pythonProject)\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.12\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ b/.idea/misc.xml	(date 1729600168587)
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12 (pythonProject)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (test)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/pythonProject.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.12\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/pythonProject.iml b/.idea/pythonProject.iml
+--- a/.idea/pythonProject.iml	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ b/.idea/pythonProject.iml	(date 1729600168622)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.12" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.12 (test)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ac03dc04-f6c8-4b88-9be8-d2c2af99e63d\" name=\"Changes\" comment=\"каиф\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/handlers/user/menu.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/handlers/user/menu.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/loader.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/loader.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/utils/db/storage.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/utils/db/storage.py\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {}\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Cristalical/BOT_DZ.git&quot;,\r\n    &quot;accountId&quot;: &quot;621f8b1c-9609-4ca1-9ec6-7f584b6dd4e4&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2mlHIBjjOS5KiIlLDjdzj2mAaQg\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Python.app.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.is_admin.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.jj.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.loader.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.menu.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.run.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.storage.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Shura\\Desktop\\☠\uFE0F☠\uFE0F☠\uFE0F\\Примеры\\Ботки\\Ostrovokbot\\BOT_DZ\" />\r\n      <recent name=\"C:\\Users\\Shura\\Desktop\\☠\uFE0F☠\uFE0F☠\uFE0F\\Примеры\\Ботки\\Ostrovokbot\\BOT_DZ\\.venv\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ac03dc04-f6c8-4b88-9be8-d2c2af99e63d\" name=\"Changes\" comment=\"\" />\r\n      <created>1727644160286</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1727644160286</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727645496499</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727645496499</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727645853629</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727645853629</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727646353485</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727646353485</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727646958998</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727646958998</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727722683621</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727722683621</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727722862232</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727722862232</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727722921092</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727722921092</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1727731827423</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1727731827423</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"GOOD!????\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728331537888</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728331537888</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"ono rabotaet!!!!!!!!!!!!!!!!\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1728916027287</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1728916027287</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"ono rabotaet!!!!!!!!!!!!!!!!\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729174548102</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729174548102</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"каиф\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729205910259</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729205910259</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"каиф\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729206089293</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729206089293</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"14\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"GOOD!????\" />\r\n    <MESSAGE value=\"ono rabotaet!!!!!!!!!!!!!!!!\" />\r\n    <MESSAGE value=\"каиф\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"каиф\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 21aa047c75155aa56cf9406c5ae295db7d5c0625)
++++ b/.idea/workspace.xml	(date 1729600781009)
+@@ -4,9 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="каиф">
++    <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="GOOD!????">
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/pythonProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pythonProject.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024,_15_22_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_10_2024__15_22__Changes_.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/handlers/user/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user/menu.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/loader.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/utils/db/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db/storage.py" afterDir="false" />
+     </list>
+@@ -51,10 +54,7 @@
+   <component name="PropertiesComponent">{
+   &quot;keyToString&quot;: {
+     &quot;Python.app.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.is_admin.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.jj.executor&quot;: &quot;Run&quot;,
+     &quot;Python.loader.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.menu.executor&quot;: &quot;Run&quot;,
+     &quot;Python.run.executor&quot;: &quot;Run&quot;,
+     &quot;Python.storage.executor&quot;: &quot;Run&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+@@ -156,56 +156,11 @@
+       <option name="project" value="LOCAL" />
+       <updated>1728331537888</updated>
+     </task>
+-    <task id="LOCAL-00010" summary="ono rabotaet!!!!!!!!!!!!!!!!">
+-      <option name="closed" value="true" />
+-      <created>1728916027287</created>
+-      <option name="number" value="00010" />
+-      <option name="presentableId" value="LOCAL-00010" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1728916027287</updated>
+-    </task>
+-    <task id="LOCAL-00011" summary="ono rabotaet!!!!!!!!!!!!!!!!">
+-      <option name="closed" value="true" />
+-      <created>1729174548102</created>
+-      <option name="number" value="00011" />
+-      <option name="presentableId" value="LOCAL-00011" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1729174548102</updated>
+-    </task>
+-    <task id="LOCAL-00012" summary="каиф">
+-      <option name="closed" value="true" />
+-      <created>1729205910259</created>
+-      <option name="number" value="00012" />
+-      <option name="presentableId" value="LOCAL-00012" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1729205910259</updated>
+-    </task>
+-    <task id="LOCAL-00013" summary="каиф">
+-      <option name="closed" value="true" />
+-      <created>1729206089293</created>
+-      <option name="number" value="00013" />
+-      <option name="presentableId" value="LOCAL-00013" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1729206089293</updated>
+-    </task>
+-    <option name="localTasksCounter" value="14" />
++    <option name="localTasksCounter" value="10" />
+     <servers />
+   </component>
+-  <component name="Vcs.Log.Tabs.Properties">
+-    <option name="TAB_STATES">
+-      <map>
+-        <entry key="MAIN">
+-          <value>
+-            <State />
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="GOOD!????" />
+-    <MESSAGE value="ono rabotaet!!!!!!!!!!!!!!!!" />
+-    <MESSAGE value="каиф" />
+-    <option name="LAST_COMMIT_MESSAGE" value="каиф" />
++    <option name="LAST_COMMIT_MESSAGE" value="GOOD!????" />
+   </component>
+ </project>
+\ No newline at end of file

@@ -9,7 +9,7 @@ from loader import dp, db
 # '''Ответ на команду menu'''
 @dp.message(Command("menu"))
 async def cmd_menu(message: Message):
-    await message.answer('''Выбери предмет, сучка))''', reply_markup=butt_subjects())
+    await message.answer('''Выбери предмет''', reply_markup=butt_subjects())
 
 # '''Создание инлайн кнопок, возможно вынести в файл'''
 def butt_subjects():
@@ -44,53 +44,53 @@ def date_f(day, month, year, subj):
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ОДК, выбери дату сучка''', reply_markup=butt("odk"))
+    await call.answer('Сколько перья не цепляй цыпленком не станешь')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("odk"))
 
 @dp.callback_query(F.data == 'org_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ОРГ, выбери дату сучка''', reply_markup=butt("org"))
+    await call.answer('Мужчина без жены как рыба без велосипеда')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("org"))
 
 @dp.callback_query(F.data == 'init_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип ИНИТ, выбери дату сучка''', reply_markup=butt("init"))
+    await call.answer('Нет ничего невозможного если ты пиздабол')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("init"))
 
 @dp.callback_query(F.data == 'inf_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип инфа, выбери дату сучка''', reply_markup=butt("inf"))
+    await call.answer('Читай коран еби баран')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("inf"))
 
 @dp.callback_query(F.data == 'math_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип матан, выбери дату сучка''', reply_markup=butt("math"))
+    await call.answer('Если пьянка неизбежна-пить надо первым')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("math"))
 
 @dp.callback_query(F.data == 'ir_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип история России, выбери дату сучка''', reply_markup=butt("ir"))
+    await call.answer('Я как носок-одинок, но не дырявый')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("ir"))
 
 @dp.callback_query(F.data == 'eng_kr_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип английский красавчиков, выбери дату сучка''', reply_markup=butt("eng_kr"))
+    await call.answer('$$$')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("eng_kr"))
 
 @dp.callback_query(F.data == 'eng_ym_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип английский умничек, выбери дату сучка''', reply_markup=butt("eng_ym"))
+    await call.answer('В пиве мало витаминов поэтому его надо пить больше')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("eng_ym"))
 
 @dp.callback_query(F.data == 'vvp_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип введение в профессию, выбери дату сучка''', reply_markup=butt("vvp"))
+    await call.answer('^__^ ;D :3')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("vvp"))
 
 @dp.callback_query(F.data == 'phys_f')
 async def subjects(call: CallbackQuery):
-    await call.answer('Я думаю)')
-    await call.message.answer('''Это тип физра, выбери дату сучка''', reply_markup=butt("phys"))
+    await call.answer('Пиво водка турничок через годик я качок')
+    await call.message.answer('''Выбери дату:''', reply_markup=butt("phys"))
 
 # '''Реакция на sos'''
 @dp.message(Command("sos"))

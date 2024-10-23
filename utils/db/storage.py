@@ -52,4 +52,4 @@ class DatebaseManager:
 
     def close(self):
         self.conn.close()
-        self.cursor.close()
+        self.cur.close()
