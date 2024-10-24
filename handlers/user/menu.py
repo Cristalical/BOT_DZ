@@ -36,10 +36,10 @@ def butt(subj):
         #пиздец тут я устал
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
-@dp.callback_query(F.func())
-def date_f(day, month, year, subj):
-    d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' and deadline = \'{f"{str(year)}-{str(month)}-{str(day)}"}\'")
-    print(d_mess)
+# @dp.callback_query(F.func())
+# def date_f(day, month, year, subj):
+#     d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' and deadline = \'{f"{str(year)}-{str(month)}-{str(day)}"}\'")
+#     print(d_mess)
 
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')

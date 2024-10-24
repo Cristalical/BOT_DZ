@@ -11,6 +11,4 @@ bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTM
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 db = DatebaseManager()
-db.create_db()
-db.create_table()
 print(db.fetchall(f"SELECT deadline FROM all_homework WHERE lessons = \'init\'"))
