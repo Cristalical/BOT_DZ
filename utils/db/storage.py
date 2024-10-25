@@ -4,7 +4,7 @@ class DatebaseManager:
     def __init__(self):
         self.info_db = {"user": "dbadmin",
                         "password": "Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt",
-                        "host": "10.0.0.6",
+                        "host": "176.123.164.111",
                         "port": "5432",
                         "database": "DZBOT812"}
 
