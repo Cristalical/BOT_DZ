@@ -1,4 +1,3 @@
-from aiogram import F
 from aiogram.types import Message
 from aiogram.filters import Command
 import asyncio
@@ -6,9 +5,6 @@ import asyncio
 from loader import dp, bot
 import handlers.user.menu
 import handlers.admin.add_dz
-
-user_message = "Челик"
-admin_message = "БОГ!"
 
 @dp.message(Command("start"))
 async def cmd_start(message: Message):

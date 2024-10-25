@@ -1,21 +1,15 @@
-from webbrowser import Error
-
 import psycopg2 as p2
 
 class DatebaseManager:
     def __init__(self):
-        try:
-            self.info_db = {"user": "postgres",
-                            "password": "qwerty",
-                            "host": "127.0.0.1",
-                            "port": "5432",
-                            "database": "dz_bot_bd"}
+        self.info_db = {"user": "dbadmin",
+                        "password": "Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt",
+                        "host": "10.0.0.6",
+                        "port": "5432",
+                        "database": "DZBOT812"}
 
-            self.conn = p2.connect(**self.info_db)
-            self.cur = self.conn.cursor()
-            print("Ура")
-        except:
-            print("error")
+        self.conn = p2.connect(**self.info_db)
+        self.cursor = self.conn.cursor()
 
     def create_db(self):
         self.query("CREATE DATABASE dz_bot_bd")
@@ -52,4 +46,4 @@ class DatebaseManager:
 
     def close(self):
         self.conn.close()
-        self.cur.close()
+        self.cursor.close()

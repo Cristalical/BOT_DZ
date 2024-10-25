@@ -2,7 +2,6 @@ from datetime import datetime
 
 from aiogram import F
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from aiogram.filters.callback_data import CallbackData
 from aiogram.filters import Command
 
 from loader import dp, db
@@ -28,38 +27,19 @@ def butt_subjects():
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
-# Создаем класс для callback_data
-class DateCallbackData(CallbackData, prefix="date"):
-    date: str
-    subj: str
-
-# Создание кнопок с датами
 def butt(subj):
     date_table = db.fetchall(f"SELECT deadline FROM all_homework WHERE lessons = \'{subj}\'")
     inline_kb_list = []
     for element in date_table:
         date = str(element)[15:27].split(", ")
-        date_str = f"{date[2]}.{date[1]}.{date[0]}"
-        inline_kb_list.append([InlineKeyboardButton(text=date_str, callback_data=DateCallbackData(date=date_str, subj=subj).pack())])
+        inline_kb_list.append([InlineKeyboardButton(text=f"{date[2]}.{date[1]}.{date[0]}", callback_data='vvp_f')])#, reply_markup=date_f(int(date[2]), int(date[1]), int(date[0]), subj))])
+        #пиздец тут я устал
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
-# Функция для обработки callback_data
-@dp.callback_query(DateCallbackData.filter())
-async def process_callback(callback_query: CallbackQuery, callback_data: DateCallbackData):
-    date = callback_data.date
-    subj = callback_data.subj
-    await vvp_f(callback_query, date, subj)
-    await callback_query.answer()
-
-# Функция vvp_f
-async def vvp_f(callback_query: CallbackQuery, date: str, subj: str):
-    list_date = date.split(".")
-    day = list_date[0]
-    month = list_date[1]
-    year = list_date[2]
-    d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
+@dp.callback_query(F.func())
+def date_f(day, month, year, subj):
+    d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' and deadline = \'{f"{str(year)}-{str(month)}-{str(day)}"}\'")
     print(d_mess)
-    await callback_query.answer(f"Вы выбрали дату: {date}")
 
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')
@@ -115,4 +95,4 @@ async def subjects(call: CallbackQuery):
 # '''Реакция на sos'''
 @dp.message(Command("sos"))
 async def cmd_sos(message: Message):
-    await message.answer('''Обращайтесь к @cristalical и @neveroyatneyshee!!!''')
+    await message.answer('''Обращайтесь к ебейшему @cristalical и его помощнику @neveroyatneyshee!!!''')

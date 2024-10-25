@@ -8,9 +8,9 @@ from data.config import ADMINS
 @dp.message(Command("add"))
 async def cmd_add(message: Message):
     if message.from_user.id in ADMINS:
-        await message.answer('''Добро пожаловать, по какому предмету желаете добавить дз?''', reply_markup=butt_admin())
+        await message.answer('''Добро пожаловать, по какому предмету желаешь добавить дз?''', reply_markup=butt_admin())
     else:
-        await message.answer('''Я сорри, ты не админ, ты сучка)))''')
+        await message.answer('''Куда лезешь без админки?)''')
 
 def butt_admin():
     inline_kb_list = [
@@ -31,49 +31,50 @@ def butt_admin():
 @dp.callback_query(F.data == 'odk_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это ОДК''')
+    await call.message.answer('''Пиши задание''')
+
 
 @dp.callback_query(F.data == 'org_f_A')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это ОРГ''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'init_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это ИНИТ''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'inf_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это инфа''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'math_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это матан''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'ir_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это история России''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'eng_kr_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это английский красавчиков''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'eng_ym_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это английский умничек''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'vvp_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это введение в профессию''')
+    await call.message.answer('''Пиши задание''')
 
 @dp.callback_query(F.data == 'phys_f_a')
 async def subjects(call: CallbackQuery):
     await call.answer('Я думаю)')
-    await call.message.answer('''Это физра''')
+    await call.message.answer('''Пиши задание''')
