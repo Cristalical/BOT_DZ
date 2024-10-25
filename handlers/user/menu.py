@@ -115,4 +115,4 @@ async def subjects(call: CallbackQuery):
 # '''Реакция на sos'''
 @dp.message(Command("sos"))
 async def cmd_sos(message: Message):
-    await message.answer('''Обращайтесь к ебейшему @cristalical и его помощнику @neveroyatneyshee!!!''')
+    await message.answer('''Обращайтесь к @cristalical и @neveroyatneyshee!!!''')
