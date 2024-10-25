@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="изменил данные о бд">
+    <list default="true" id="ac03dc04-f6c8-4b88-9be8-d2c2af99e63d" name="Changes" comment="каиф">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/user/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user/menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +29,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Cristalical/BOT_DZ.git&quot;,
-    &quot;accountId&quot;: &quot;df24f006-db74-4b9e-8801-cb178fea11f3&quot;
+    &quot;accountId&quot;: &quot;621f8b1c-9609-4ca1-9ec6-7f584b6dd4e4&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -65,10 +66,35 @@
       <recent name="C:\Users\Shura\Desktop\☠️☠️☠️\Примеры\Ботки\Ostrovokbot\BOT_DZ\.venv" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="pythonProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (aio_bot_prj)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d7ad00fb9fc3-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23726.102" />
+        <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
       </set>
     </attachedChunks>
   </component>
@@ -185,15 +211,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729206089293</updated>
     </task>
-    <task id="LOCAL-00014" summary="изменил данные о бд">
+    <task id="LOCAL-00014" summary="каиф">
       <option name="closed" value="true" />
-      <created>1729873723942</created>
+      <created>1729382830872</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1729873723942</updated>
+      <updated>1729382830872</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="каиф">
+      <option name="closed" value="true" />
+      <created>1729794821312</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729794821312</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +245,6 @@
     <MESSAGE value="GOOD!????" />
     <MESSAGE value="ono rabotaet!!!!!!!!!!!!!!!!" />
     <MESSAGE value="каиф" />
-    <MESSAGE value="изменил данные о бд" />
-    <option name="LAST_COMMIT_MESSAGE" value="изменил данные о бд" />
+    <option name="LAST_COMMIT_MESSAGE" value="каиф" />
   </component>
 </project>
