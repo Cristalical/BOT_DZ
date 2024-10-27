@@ -58,7 +58,7 @@ async def vvp_f(callback_query: CallbackQuery, date: str, subj: str):
     month = list_date[1]
     year = list_date[2]
     d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
-    print(d_mess)
+    print(*d_mess)
     await callback_query.answer(f"Вы выбрали дату: {date}")
 
 # '''Функционал каждой кнопки'''
