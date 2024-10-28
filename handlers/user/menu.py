@@ -48,17 +48,17 @@ def butt(subj):
 async def process_callback(callback_query: CallbackQuery, callback_data: DateCallbackData):
     date = callback_data.date
     subj = callback_data.subj
-    await vvp_f(callback_query, date, subj)
+    await inp(callback_query, date, subj)
     await callback_query.answer()
 
-# Функция vvp_f
-async def vvp_f(callback_query: CallbackQuery, date: str, subj: str):
+async def inp(callback_query: CallbackQuery, date: str, subj: str):
     list_date = date.split(".")
     day = list_date[0]
     month = list_date[1]
     year = list_date[2]
-    d_mess = db.fetchall(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
-    print(*d_mess)
+    d_mess = db.fetchone(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
+    message_text = (f"<b>Предмет</b>: {d_mess[1]}\n<b>Срок выполнения</b>: {day}.{month}.{year}\n<b>Задание</b>: {d_mess[2]}\n<b>Формат</b>: {d_mess[4]}")
+    await callback_query.message.answer(message_text)
     await callback_query.answer(f"Вы выбрали дату: {date}")
 
 # '''Функционал каждой кнопки'''

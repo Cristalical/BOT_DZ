@@ -3,17 +3,11 @@ import psycopg2 as p2
 class DatebaseManager:
     def __init__(self):
         try:
-            self.info_db = {"user": "dbadmin",
-                            "password": "Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt",
-                            "host": "176.123.164.111",
+            self.info_db = {"user": "postgres",
+                            "password": "qwerty",
+                            "host": "127.0.0.1",
                             "port": "5432",
-                            "database": "DZBOT812",
-                            "URL": "postgresql://10.0.0.6:5432/DZBOT812"}
-            # self.info_db = {"user": "postgres",
-            #                 "password": "qwerty",
-            #                 "host": "127.0.0.1",
-            #                 "port": "5432",
-            #                 "database": "dz_bot_bd"}
+                            "database": "dz_bot_bd"}
             self.conn = p2.connect(**self.info_db)
             self.cur = self.conn.cursor()
             print("Ура")
@@ -56,26 +50,3 @@ class DatebaseManager:
     def close(self):
         self.conn.close()
         self.cursor.close()
-
-
-
-
-
-import psycopg2
-
-# Подключение к базе данных
-conn = psycopg2.connect("postgresql://dbadmin:Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt@176.123.164.111:5432/dz_bot")
-
-# Создание курсора
-cur = conn.cursor()
-
-# Выполнение запроса
-cur.execute("SELECT version();")
-
-# Получение результата
-record = cur.fetchone()
-print(record)
-
-# Закрытие курсора и соединения
-cur.close()
-conn.close()
