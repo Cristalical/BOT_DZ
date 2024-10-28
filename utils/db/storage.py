@@ -3,6 +3,11 @@ import psycopg2 as p2
 class DatebaseManager:
     def __init__(self):
         try:
+            # self.info_db = {"user": "dbadmin",
+            #                 "password": "Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt",
+            #                 "host": "176.123.164.111",
+            #                 "port": "5432",
+            #                 "database": "DZBOT812"}
             self.info_db = {"user": "postgres",
                             "password": "qwerty",
                             "host": "127.0.0.1",
@@ -11,8 +16,8 @@ class DatebaseManager:
             self.conn = p2.connect(**self.info_db)
             self.cur = self.conn.cursor()
             print("Ура")
-        except:
-            print("error")
+        except p2.Error as e:
+            print("error", e)
 
     def create_db(self):
         self.query("CREATE DATABASE dz_bot_bd")
@@ -50,3 +55,4 @@ class DatebaseManager:
     def close(self):
         self.conn.close()
         self.cursor.close()
+b = DatebaseManager()
