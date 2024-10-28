@@ -63,7 +63,7 @@ class DatebaseManager:
 
 import psycopg2
 
-# Подключение к базе данных jkjkj
+# Подключение к базе данных
 conn = psycopg2.connect("postgresql://dbadmin:Ef9Uf1g8EFWYDtJMUD9bLgIMGZn0IvpNdcjz4LRNlf3cSRjKB1RyvUt39sENdcDt@176.123.164.111:5432/dz_bot")
 
 # Создание курсора
