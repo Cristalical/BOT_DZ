@@ -1,7 +1,8 @@
 from datetime import datetime
 
+import aiofiles
 from aiogram import F
-from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile
 from aiogram.filters.callback_data import CallbackData
 from aiogram.filters import Command
 
@@ -57,10 +58,28 @@ async def inp(callback_query: CallbackQuery, date: str, subj: str):
     month = list_date[1]
     year = list_date[2]
     d_mess = db.fetchone(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
-    message_text = (f"<b>Предмет</b>: {d_mess[1]}\n<b>Срок выполнения</b>: {day}.{month}.{year}\n<b>Задание</b>: {d_mess[2]}\n<b>Формат</b>: {d_mess[4]}")
-    await callback_query.message.answer(message_text)
-    await callback_query.answer(f"Вы выбрали дату: {date}")
 
+    if d_mess:
+        message_text = (f"<b>Предмет</b>: {d_mess[1]}\n<b>Срок выполнения</b>: {day}.{month}.{year}\n<b>Задание</b>: {d_mess[2]}\n<b>Формат</b>: {d_mess[4]}")
+        await callback_query.message.answer(message_text)
+
+        # Отправка изображения
+        if d_mess[5]:  # Проверка, что путь к файлу существует
+            file_path = str(d_mess[5]).strip()# Убедимся, что путь к файлу является строкой и удалим лишние пробелы
+            if file_path:
+                try:
+                    photo = FSInputFile(file_path)
+                    await callback_query.message.answer_photo(photo=photo, caption=f"Вы выбрали дату: {date}")
+                except Exception as e:
+                    await callback_query.message.answer(f"Ошибка при отправке изображения: {e}")
+            else:
+                await callback_query.message.answer("Путь к файлу пуст или некорректен.")
+        else:
+            await callback_query.message.answer(f"Вы выбрали дату: {date}")
+    else:
+        await callback_query.message.answer("Домашнее задание не найдено.")
+
+    await callback_query.answer()
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')
 async def subjects(call: CallbackQuery):
