@@ -17,7 +17,7 @@ class HomeworkState(StatesGroup):
 # Обработчик команды /add
 @dp.message(Command("add"))
 async def cmd_add(message: Message):
-    if message.from_user.id: # in ADMINS:
+    if message.from_user.id in ADMINS:
         await message.answer('Добро пожаловать, по какому предмету желаешь добавить дз?', reply_markup=butt_admin())
     else:
         await message.answer('Куда лезешь без админки?)')
