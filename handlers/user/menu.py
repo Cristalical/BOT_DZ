@@ -1,6 +1,3 @@
-from datetime import datetime
-
-import aiofiles
 from aiogram import F
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile
 from aiogram.filters.callback_data import CallbackData
@@ -8,10 +5,10 @@ from aiogram.filters import Command
 
 from loader import dp, db
 
-# '''Ответ на команду menu'''
-@dp.message(Command("menu"))
+# '''Ответ на команду dz'''
+@dp.message(Command("dz"))
 async def cmd_menu(message: Message):
-    await message.answer('''Выбери предмет''', reply_markup=butt_subjects())
+    await message.answer('''Выбери предмет из списка''', reply_markup=butt_subjects())
 
 # '''Создание инлайн кнопок, возможно вынести в файл'''
 def butt_subjects():

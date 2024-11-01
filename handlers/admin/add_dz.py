@@ -38,7 +38,6 @@ def butt_admin():
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_kb_list)
 
-# Функция для создания клавиатуры с кнопкой отмены
 def butt_cancel():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Отмена", callback_data='cancel')]
