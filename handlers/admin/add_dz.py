@@ -91,7 +91,7 @@ async def process_image_date(message: Message, state: FSMContext):
     file_id = message.photo[-1].file_id  # Получаем file_id изображения
     file = await bot.get_file(file_id)
     file_path = file.file_path
-    destination = f"C:/bot/{file_id}.jpg"
+    destination = f"/Users/kachalov.id/Documents/domashkaphoto/{file_id}.jpg"
     await bot.download_file(file_path, destination)
     await state.update_data(image_date=destination)
     data = await state.get_data()
