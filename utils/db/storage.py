@@ -18,7 +18,7 @@ class DatabaseManager:
 
     def create_db(self):
         try:
-            conn = p2.connect(user="postgres", password="qwerty", host="127.0.0.1", port="5432", database="postgres")
+            conn = p2.connect(user="postgres", password="qwerty", host="127.0.0.1", port="5432", database="dz_bot_bd")
             conn.autocommit = True
             cur = conn.cursor()
             cur.execute("CREATE DATABASE dz_bot_bd")
@@ -75,9 +75,8 @@ class DatabaseManager:
         except p2.Error as e:
             print("Error closing connection:", e)
 
-# Usage
-# b = DatabaseManager()
-# b.create_db()
-# b.create_table()
-# print(b.fetchall("SELECT deadline FROM all_homework WHERE lessons = 'odk'"))
-# b.close()
+# Создание и проверка
+b = DatabaseManager()
+b.create_db()
+b.create_table()
+b.close()
