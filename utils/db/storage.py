@@ -8,7 +8,7 @@ class DatabaseManager:
                 "password": "qwerty",
                 "host": "127.0.0.1",
                 "port": "5432",
-                "database": "postgres"
+                "database": "dz_bot_bd"
             }
             self.conn = p2.connect(**self.info_db)
             self.cur = self.conn.cursor()
@@ -79,4 +79,5 @@ class DatabaseManager:
 # b = DatabaseManager()
 # b.create_db()
 # b.create_table()
+# print(b.fetchall("SELECT deadline FROM all_homework WHERE lessons = 'odk'"))
 # b.close()

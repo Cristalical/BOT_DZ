@@ -35,6 +35,7 @@ class DateCallbackData(CallbackData, prefix="date"):
 # Создание кнопок с датами
 def butt(subj):
     date_table = db.fetchall(f"SELECT deadline FROM all_homework WHERE lessons = \'{subj}\'")
+    print(subj, date_table)
     inline_kb_list = []
     for element in date_table:
         date = str(element)[15:27].split(", ")
