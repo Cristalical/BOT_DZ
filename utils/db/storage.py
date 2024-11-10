@@ -3,13 +3,6 @@ import psycopg2 as p2
 class DatabaseManager:
     def __init__(self):
         try:
-            # self.info_db = {
-            #     "user": "myuser",
-            #     "password": "Qwerty123",
-            #     "host": "62.233.43.188",
-            #     "port": "5432",
-            #     "database": "dz_bot"
-            # }
             self.info_db = {
                 "user": "postgres",
                 "password": "qwerty",
