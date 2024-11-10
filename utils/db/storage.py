@@ -15,7 +15,7 @@ class DatabaseManager:
                 "password": "qwerty",
                 "host": "127.0.0.1",
                 "port": "5432",
-                "database": "dz_bot_bd"
+                "database": "postgres"
             }
             self.conn = p2.connect(**self.info_db)
             self.cur = self.conn.cursor()
