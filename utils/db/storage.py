@@ -42,7 +42,7 @@ class DatabaseManager:
                     description TEXT NOT NULL,
                     deadline DATE NOT NULL,
                     format TEXT NOT NULL,
-                    image_date TEXT NOT NULL)''')
+                    image_date BYTEA)''')
 
     def query(self, arg, values=None):
         try:

@@ -1,13 +1,14 @@
 from aiogram import F
-from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile
+from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, InputFile, BufferedInputFile
 from aiogram.filters.callback_data import CallbackData
 from aiogram.filters import Command
+from io import BytesIO
 
 from loader import dp, db
 
 # '''Ответ на команду dz'''
 @dp.message(Command("dz"))
-async def cmd_menu(message: Message):
+async def cmd_dz(message: Message):
     await message.answer('''Выбери предмет из списка''', reply_markup=butt_subjects())
 
 # '''Создание инлайн кнопок, возможно вынести в файл'''
@@ -49,34 +50,40 @@ async def process_callback(callback_query: CallbackQuery, callback_data: DateCal
     await inp(callback_query, date, subj)
     await callback_query.answer()
 
+# Функция для извлечения данных из базы данных и отправки их пользователю
 async def inp(callback_query: CallbackQuery, date: str, subj: str):
-    list_date = date.split(".")
-    day = list_date[0]
-    month = list_date[1]
-    year = list_date[2]
-    d_mess = db.fetchone(f"SELECT * FROM all_homework WHERE lessons = \'{subj}\' AND deadline = \'{f"{year}-{month}-{day}"}\'")
+    try:
+        # Запрос данных из базы данных
+        row = db.fetchone(
+            "SELECT lessons, description, deadline, format, image_date FROM all_homework WHERE lessons = %s AND deadline = %s",
+            (subj, date)
+        )
 
-    if d_mess:
-        message_text = (f"<b>Предмет</b>: {d_mess[1]}\n<b>Срок выполнения</b>: {day}.{month}.{year}\n<b>Задание</b>: {d_mess[2]}\n<b>Формат</b>: {d_mess[4]}")
-        await callback_query.message.answer(message_text)
+        if row:
+            lessons, description, deadline, format, image_data = row
 
-        # Отправка изображения
-        if d_mess[5]:  # Проверка, что путь к файлу существует
-            file_path = str(d_mess[5]).strip()# Убедимся, что путь к файлу является строкой и удалим лишние пробелы
-            if file_path:
-                try:
-                    photo = FSInputFile(file_path)
-                    await callback_query.message.answer_photo(photo=photo, caption=f"Вы выбрали дату: {date}")
-                except Exception as e:
-                    await callback_query.message.answer(f"Ошибка при отправке изображения: {e}")
+            # Преобразование даты в нужный формат
+            deadline_str = deadline.strftime("%d.%m.%Y")
+
+            # Создание сообщения
+            message_text = f"Предмет: {lessons}\nДата сдачи: {deadline_str}\nОписание: {description}\nФормат: {format}"
+
+            # Отправка изображения с текстом
+            if image_data:
+                image_file = BytesIO(image_data)
+                image_file.name = f"{lessons}_{deadline_str}.png"
+                await callback_query.message.answer_photo(
+                    BufferedInputFile(image_file.getvalue(), filename=image_file.name),
+                    caption=message_text
+                )
             else:
-                await callback_query.message.answer("Путь к файлу пуст или некорректен.")
+                await callback_query.message.answer(message_text)
         else:
-            await callback_query.message.answer(f"Вы выбрали дату: {date}")
-    else:
-        await callback_query.message.answer("Домашнее задание не найдено.")
+            await callback_query.message.answer("Данные не найдены.")
 
-    await callback_query.answer()
+    except Exception as e:
+        await callback_query.message.answer(f"Произошла ошибка: {e}")
+
 # '''Функционал каждой кнопки'''
 @dp.callback_query(F.data == 'odk_f')
 async def subjects(call: CallbackQuery):
@@ -131,4 +138,8 @@ async def subjects(call: CallbackQuery):
 # '''Реакция на sos'''
 @dp.message(Command("sos"))
 async def cmd_sos(message: Message):
-    await message.answer('''Обращайтесь к @cristalical и @neveroyatneyshee!!!''')
+    inline_kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="@cristalical", url="https://t.me/cristalical")],
+        [InlineKeyboardButton(text="@neveroyatneyshee", url="https://t.me/neveroyatneyshee")]
+    ])
+    await message.answer('''Обращайтесь к @cristalical и @neveroyatneyshee!!!''', reply_markup=inline_kb)

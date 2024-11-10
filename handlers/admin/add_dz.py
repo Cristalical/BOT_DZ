@@ -3,6 +3,8 @@ from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, C
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from io import BytesIO
+from datetime import datetime
 
 from loader import dp, db, bot
 from data.config import ADMINS
@@ -17,7 +19,7 @@ class HomeworkState(StatesGroup):
 # Обработчик команды /add
 @dp.message(Command("add"))
 async def cmd_add(message: Message):
-    if message.from_user.id: # in ADMINS:
+    if message.from_user.id in ADMINS:
         await message.answer('Добро пожаловать, по какому предмету желаешь добавить дз?', reply_markup=butt_admin())
     else:
         await message.answer('Куда лезешь без админки?)')
@@ -49,27 +51,20 @@ async def subjects(call: CallbackQuery, state: FSMContext):
     subject = call.data.split('_f_a')[0]
     await state.update_data(lessons=subject)
 
-    # Получаем максимальный ID из базы данных и увеличиваем его на 1
-    try:
-        db.cur.execute('SELECT MAX(all_homework_id) FROM all_homework')
-        max_id = db.cur.fetchone()[0]
-        if max_id is None:
-            max_id = 0
-        new_id = max_id + 1
-        await state.update_data(id=new_id)
-    except Exception as e:
-        await call.message.answer(f'Ошибка при получении id: {e}')
-        return
-
     await call.message.answer('Какой дедлайн?', reply_markup=butt_cancel())
     await state.set_state(HomeworkState.waiting_for_deadline)
 
 # Обработчик для ввода дедлайна
 @dp.message(HomeworkState.waiting_for_deadline)
 async def process_deadline(message: Message, state: FSMContext):
-    await state.update_data(deadline=message.text)
-    await message.answer('Пиши описание задания', reply_markup=butt_cancel())
-    await state.set_state(HomeworkState.waiting_for_description)
+    try:
+        # Преобразуем строку даты в объект datetime
+        deadline = datetime.strptime(message.text, '%d.%m.%Y')
+        await state.update_data(deadline=deadline)
+        await message.answer('Пиши описание задания', reply_markup=butt_cancel())
+        await state.set_state(HomeworkState.waiting_for_description)
+    except ValueError:
+        await message.answer('Неверный формат даты. Пожалуйста, введите дату в формате ДД.ММ.ГГГГ.')
 
 # Обработчик для ввода описания задания
 @dp.message(HomeworkState.waiting_for_description)
@@ -82,35 +77,62 @@ async def process_description(message: Message, state: FSMContext):
 @dp.message(HomeworkState.waiting_for_format)
 async def process_format(message: Message, state: FSMContext):
     await state.update_data(format=message.text)
-    await message.answer('Отправь изображение', reply_markup=butt_cancel())
+    await message.answer('Отправь изображение или напиши "пропустить", если не хочешь добавлять изображения')
     await state.set_state(HomeworkState.waiting_for_image_date)
 
 # Обработчик для отправки изображения
-@dp.message(StateFilter(HomeworkState.waiting_for_image_date), F.content_type == ContentType.PHOTO)
+@dp.message(F.content_type == ContentType.PHOTO, HomeworkState.waiting_for_image_date)
 async def process_image_date(message: Message, state: FSMContext):
     file_id = message.photo[-1].file_id  # Получаем file_id изображения
     file = await bot.get_file(file_id)
     file_path = file.file_path
-    destination = f"C:/bot/{file_id}.jpg"
-    await bot.download_file(file_path, destination)
-    await state.update_data(image_date=destination)
+    file_info = await bot.download_file(file_path)
+
+    # Читаем изображение в виде байтового массива
+    image_data = BytesIO(file_info.read()).getvalue()
+
+    # Сохраняем изображение в состояние
+    await state.update_data(image=image_data)
+
+    await message.answer('Изображение добавлено.')
+
+    # Сохраняем домашнее задание в базу данных
     data = await state.get_data()
     save_homework(data)
+
     await message.answer('Домашнее задание успешно добавлено!')
     await state.clear()
 
+# Обработчик для пропуска изображений
+@dp.message(F.text.lower() == "пропустить", HomeworkState.waiting_for_image_date)
+async def skip_images(message: Message, state: FSMContext):
+    await state.update_data(image=None)
+    await message.answer('Изображения пропущены.')
 
-# Функция для сохранения данных в базу данных
+    # Сохраняем домашнее задание в базу данных
+    data = await state.get_data()
+    save_homework(data)
+
+    await message.answer('Домашнее задание успешно добавлено!')
+    await state.clear()
+
+# Функция для сохранения домашнего задания в базу данных
 def save_homework(data):
+    lessons = data['lessons']
+    description = data['description']
+    deadline = data['deadline']
+    format = data['format']
+    image = data.get('image', None)
+
     try:
-        print(data)
-        db.cur.execute('''
-        INSERT INTO all_homework (all_homework_id, lessons, description, deadline, format, image_date)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        ''', (data['id'], data['lessons'], data['description'], data['deadline'], data['format'], data['image_date']))
+        db.cur.execute(
+            "INSERT INTO all_homework (lessons, description, deadline, format, image_date) VALUES (%s, %s, %s, %s, %s)",
+            (lessons, description, deadline, format, image)
+        )
         db.conn.commit()
     except Exception as e:
-        print(f'Ошибка при сохранении задания: {e}')
+        print(f"Ошибка при сохранении домашнего задания: {e}")
+        db.conn.rollback()
 
 # Обработчик для отмены операции
 @dp.callback_query(F.data == 'cancel')
