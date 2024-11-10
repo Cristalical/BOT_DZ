@@ -66,8 +66,20 @@ async def inp(callback_query: CallbackQuery, date: str, subj: str):
             # Преобразование даты в нужный формат
             deadline_str = deadline.strftime("%d.%m.%Y")
 
+            #Словарь предметов, чтобы был нормальный вывод
+            less = {"odk": "ОДК",
+                    "org": "ОРГ",
+                    "init": "ИНИТ",
+                    "inf": "ИНФА",
+                    "math": "Матан",
+                    "ir": "ИР",
+                    "eng_kr": "Английский красавчиков",
+                    "eng_ym": "Английский умничек",
+                    "vvp": "Введение в профессию",
+                    "phys": "Физра"}
+
             # Создание сообщения
-            message_text = f"Предмет: {lessons}\nДата сдачи: {deadline_str}\nОписание: {description}\nФормат: {format}"
+            message_text = f"Предмет: {less[lessons]}\nДата сдачи: {deadline_str}\nОписание: {description}\nФормат: {format}"
 
             # Отправка изображения с текстом
             if image_data:
