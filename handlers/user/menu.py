@@ -1,5 +1,5 @@
 from aiogram import F
-from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, InputFile, BufferedInputFile
+from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, BufferedInputFile
 from aiogram.filters.callback_data import CallbackData
 from aiogram.filters import Command
 from io import BytesIO
