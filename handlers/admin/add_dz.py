@@ -6,7 +6,7 @@ from aiogram.fsm.state import State, StatesGroup
 from io import BytesIO
 from datetime import datetime
 
-from loader import dp, db, bot
+from loader import dp, db, bot, less
 from data.config import ADMINS
 
 # Определяем состояния для FSM
@@ -100,7 +100,7 @@ async def process_image_date(message: Message, state: FSMContext):
     data = await state.get_data()
     save_homework(data)
 
-    await message.answer('Домашнее задание успешно добавлено!')
+    await message.answer(f"Домашнее задание по {less[data['lessons']]} успешно добавлено!")
     await state.clear()
 
 # Обработчик для пропуска изображений
@@ -113,7 +113,7 @@ async def skip_images(message: Message, state: FSMContext):
     data = await state.get_data()
     save_homework(data)
 
-    await message.answer('Домашнее задание успешно добавлено!')
+    await message.answer(f"Домашнее задание по {less[data['lessons']]} успешно добавлено!")
     await state.clear()
 
 # Функция для сохранения домашнего задания в базу данных

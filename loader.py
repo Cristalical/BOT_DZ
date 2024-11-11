@@ -6,8 +6,20 @@ from aiogram.client.default import DefaultBotProperties
 from data.config import BOT_TOKEN
 from utils.db.storage import DatabaseManager
 
-# '''Тут я сделал так, чтобы бот мог работать с html кодом'''
+# Создание всего
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 db = DatabaseManager()
+
+# Словарь предметов, чтобы был нормальный вывод
+less = {"odk": "ОДК",
+        "org": "ОРГ",
+        "init": "ИНИТ",
+        "inf": "ИНФА",
+        "math": "Матан",
+        "ir": "ИР",
+        "eng_kr": "Английский красавчиков",
+        "eng_ym": "Английский умничек",
+        "vvp": "Введение в профессию",
+        "phys": "Физра"}

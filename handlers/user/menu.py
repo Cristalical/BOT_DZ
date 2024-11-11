@@ -4,7 +4,7 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.filters import Command
 from io import BytesIO
 
-from loader import dp, db
+from loader import dp, db, less
 
 # '''Ответ на команду dz'''
 @dp.message(Command("dz"))
@@ -35,7 +35,6 @@ class DateCallbackData(CallbackData, prefix="date"):
 # Создание кнопок с датами
 def butt(subj):
     date_table = db.fetchall(f"SELECT deadline FROM all_homework WHERE lessons = \'{subj}\'")
-    print(subj, date_table)
     inline_kb_list = []
     for element in date_table:
         date = str(element)[15:27].split(", ")
@@ -65,18 +64,6 @@ async def inp(callback_query: CallbackQuery, date: str, subj: str):
 
             # Преобразование даты в нужный формат
             deadline_str = deadline.strftime("%d.%m.%Y")
-
-            #Словарь предметов, чтобы был нормальный вывод
-            less = {"odk": "ОДК",
-                    "org": "ОРГ",
-                    "init": "ИНИТ",
-                    "inf": "ИНФА",
-                    "math": "Матан",
-                    "ir": "ИР",
-                    "eng_kr": "Английский красавчиков",
-                    "eng_ym": "Английский умничек",
-                    "vvp": "Введение в профессию",
-                    "phys": "Физра"}
 
             # Создание сообщения
             message_text = f"Предмет: {less[lessons]}\nДата сдачи: {deadline_str}\nОписание: {description}\nФормат: {format}"
