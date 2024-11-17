@@ -6,9 +6,8 @@ class DatabaseManager:
             self.info_db = {
                 "user": "postgres",
                 "password": "qwerty",
-                "host": "127.0.0.1",
+                "host": "localhost",
                 "port": "5432",
-                "database": "dz_bot_bd"
             }
             self.conn = p2.connect(**self.info_db)
             self.cur = self.conn.cursor()
@@ -18,7 +17,7 @@ class DatabaseManager:
 
     def create_db(self):
         try:
-            conn = p2.connect(user="postgres", password="qwerty", host="127.0.0.1", port="5432", database="dz_bot_bd")
+            conn = p2.connect(user="postgres", password="qwerty", host="localhost", port="5432")
             conn.autocommit = True
             cur = conn.cursor()
             cur.execute("CREATE DATABASE dz_bot_bd")
